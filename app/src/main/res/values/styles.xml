@@ -1,0 +1,75 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">#B8B8B8</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowActivityTransitions" tools:targetApi="lollipop">true</item>
+    </style>
+
+
+    <style name="LauncherTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/launcher_screen</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowActionBarOverlay">false</item>
+    </style>
+
+    <style name="NavigationTheme" parent="Widget.Design.NavigationView">
+        <item name="android:textSize">32sp</item>
+        <item name="android:layout_marginTop">@dimen/_32sdp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
+
+    <style name="TextAppearance.Widget.AppCompat.Toolbar.Title.Name" parent="AppTheme">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/poppinslight</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Widget.AppCompat.Toolbar.Title.SubName" parent="AppTheme">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:layout_marginTop">2sp</item>
+        <item name="fontFamily">@font/poppinslight</item>
+    </style>
+
+    <style name="TextAppearance.Widget.AppCompat.Toolbar" parent="AppTheme">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="Widget.Design.NavigationView.texts" parent="AppTheme">
+        <item name="fontFamily">@font/poppinslight</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="NavigationDrawerStyle">
+        <item name="android:textSize">15sp</item>
+        <item name="titleTextStyle">@font/poppins_regular</item>
+    </style>
+
+<!--    <style name="CustomNavigationTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+<!--        <item name="drawerArrowStyle">@style/DrawerHamburgerStyle</item>-->
+<!--    </style>-->
+<!--    <style name="DrawerHamburgerStyle" parent="Widget.AppCompat.DrawerArrowToggle">-->
+<!--        <item name="android:layout_marginLeft">20dp</item>-->
+<!--        <item name="android:layout_marginStart">20dp</item>-->
+<!--        <item name="color">#ffff00</item>-->
+<!--    </style>-->
+
+</resources>

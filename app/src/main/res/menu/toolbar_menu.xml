@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--    <item android:id="@+id/changestorage"-->
+<!--        android:title="Change Storage"-->
+<!--        android:icon="@drawable/icon_material_sd_storage"-->
+<!--        />-->
+    <item android:id="@+id/rateus"
+        android:title="Rate Us"
+        android:icon="@drawable/icon_material_stars"/>
+    <item android:id="@+id/contactus"
+        android:title="Contact Us"
+        android:icon="@drawable/icon_simple_email"/>
+    <item android:id="@+id/privacypolicy"
+        android:title="Privacy Policy"
+        android:icon="@drawable/icon_map_book_store"/>
+    <item android:id="@+id/shareapp"
+        android:title="Invite Friends"
+        android:icon="@drawable/icon_feather_share_2"/>
+<!--    <item android:id="@+id/changelang"-->
+<!--        android:title="Change Language"-->
+<!--        android:icon="@drawable/icon_metro_language"/>-->
+
+</menu>

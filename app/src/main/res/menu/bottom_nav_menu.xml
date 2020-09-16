@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/recentStatus"
+        android:title="@string/WappFragment"/>
+    <item
+        android:id="@+id/downloadedStatus"
+        android:title="@string/SavedFragment"/>
+    <item android:id="@+id/favourites"
+        android:icon="@drawable/icon_metro_heart"
+        android:title="@string/FavouriteFragment"/>
+    <item
+        android:id="@+id/setting"
+        android:title="@string/SettingsFragment"/>
+</menu>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#474B53</color>
+    <color name="colorPrimaryDark">#474B53</color> <!--    to change status bar colour-->
+    <color name="colorAccent">#222222</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF3068</color>
+    <color name="splashBackground">#157735</color>
+    <color name="nav_item_background">#4776D5</color>
+
+    <color name="disablecolor">#dada00</color>
+    <color name="enablecolor">#FFFFFF</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="grid_download_enabled">#1DFF67</color>
+    <color name="heart_Enabled_fullscreen">#FB0648</color>
+    <color name="fullscreen_deleteDisablecolor">#ffcc00</color>
+    <color name="fullscreen_deleteEnablecolor">#ffffff</color>
+    <color name="fullscreen_downloadDisablecolor">#1DFF67</color>
+    <color name="fullscreen_downloadEnablecolor">#E4E4E4</color>
+
+    <color name="cardView_default_color">#545454</color>
+
+    <color name="test">#ff21ff</color>
+</resources>
