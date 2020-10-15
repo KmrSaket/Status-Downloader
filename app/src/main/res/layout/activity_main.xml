@@ -216,6 +216,19 @@
             android:layout_height="50dp"
             android:src="@drawable/fab_icon"/>
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            app:itemIconTint="@color/nav_item_color_state"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:labelVisibilityMode="unlabeled"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/btm_nav_bg"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            app:menu="@menu/bottom_nav_menu">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
