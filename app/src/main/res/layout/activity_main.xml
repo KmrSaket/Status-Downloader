@@ -140,7 +140,15 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/Fragmentholder">
+
+        </FrameLayout>
+
         <androidx.core.widget.NestedScrollView
+            android:visibility="gone"
                 android:layout_below="@id/toolbar"
                 android:id="@+id/nestedScrollView"
                 android:fillViewport="true"
@@ -217,6 +225,7 @@
             android:src="@drawable/fab_icon"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/btm_nav_bar"
             app:itemIconTint="@color/nav_item_color_state"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"

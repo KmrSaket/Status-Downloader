@@ -53,6 +53,7 @@ import com.example.statusify.fragments.WappBFragment;
 import com.example.statusify.fragments.WappFragment;
 import com.example.statusify.interfaces.DeleteListener;
 import com.example.statusify.interfaces.FragmentChangeListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.snatik.storage.Storage;
 
@@ -64,9 +65,10 @@ import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentChangeListener ,OnClickListener {
+public class MainActivity extends AppCompatActivity implements FragmentChangeListener, OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
-    FrameLayout FragHolder;
+    FrameLayout FragHolder, FragmentHolder;
+    BottomNavigationView btm_nav_bar;
     Fragment selectedFragment = new WappFragment();
     ImageView fabicon,fabiconWA,fabiconWAB, backbtn;
     BlurLayout blurLayout;
@@ -188,6 +190,10 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
         title = findViewById(R.id.title);
         subtitle = findViewById(R.id.subtitle);
         fragTitle = findViewById(R.id.fragTitle);
+
+        btm_nav_bar = findViewById(R.id.btm_nav_bar);
+        FragmentHolder = findViewById(R.id.Fragmentholder);
+        btm_nav_bar.setOnNavigationItemSelectedListener(this);
 
         nav = findViewById(R.id.navView);
         drawerLayout = findViewById(R.id.drawer);
@@ -567,6 +573,22 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
                 super.onBackPressed();
             }
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.allfeeds:
+                Log.d("btm", "all");
+                break;
+            case R.id.favourites:
+                Log.d("btm", "fav");
+                break;
+            case R.id.downloadedStatus:
+                Log.d("btm", "down");
+                break;
+        }
+        return true;
     }
 
 //    @Override
