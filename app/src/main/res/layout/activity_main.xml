@@ -80,23 +80,6 @@
                 android:layout_height="match_parent"
                 android:text="@string/favourites"
                 android:textAlignment="center"/>
-            <ImageView
-                android:id="@+id/backbtn"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/back_arrow"
-                />
-
-<!--            <ImageView-->
-<!--                android:layout_gravity="end"-->
-<!--                android:src="@drawable/wb_toolbar_icon"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginRight="14dp"-->
-<!--                android:layout_marginEnd="14dp" />-->
 
             <LinearLayout
                 android:layout_width="wrap_content"

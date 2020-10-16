@@ -65,18 +65,15 @@ import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentChangeListener, OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements  OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     FrameLayout FragmentHolder;
     BottomNavigationView btm_nav_bar;
-    Fragment selectedFragment = new WappFragment();
-    ImageView fabicon,fabiconWA,fabiconWAB, backbtn;
+    Fragment selectedFragment;
+    ImageView fabicon,fabiconWA,fabiconWAB;
     BlurLayout blurLayout;
-    String appType = null;
-    Bundle bundle = new Bundle();
-    public String dot_StatusFolder = "";
+    String appType = "WhatsApp";
 
-    NestedScrollView nestedScrollView;
     Toolbar toolbar;
     NavigationView nav;
     private DrawerLayout drawerLayout;
@@ -90,17 +87,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        blurLayout = findViewById(R.id.blurLayout);
-        blurLayout.setOnClickListener(this);
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            appType = extras.getString("appType");
-        }
-
         initialize();
-
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -153,9 +140,6 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
                 return true;
             }
         });
-
-
-
     }
 
 
@@ -172,6 +156,12 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
     }
 
     private void initialize() {
+        blurLayout = findViewById(R.id.blurLayout);
+        blurLayout.setOnClickListener(this);
+
+        selectedFragment = new WappFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.Fragmentholder,selectedFragment).commit();
+
         title = findViewById(R.id.title);
         subtitle = findViewById(R.id.subtitle);
         fragTitle = findViewById(R.id.fragTitle);
@@ -196,8 +186,6 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
         toolbarWA.setOnClickListener(this);
         toolbarWAB = findViewById(R.id.WAB);
         toolbarWAB.setOnClickListener(this);
-        backbtn = findViewById(R.id.backbtn);
-        backbtn.setOnClickListener(this);
 
 
         setSupportActionBar(toolbar);
@@ -214,11 +202,6 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
             }
         });
 
-        dot_StatusFolder = "/" + appType + "/Media/.Statuses";
-        bundle.putString("appType", appType);
-
-        selectedFragment.setArguments(bundle);
-//        getSupportFragmentManager().beginTransaction().replace(R.id.Fragholder, selectedFragment).commit();
 
 
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -227,19 +210,13 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
                 if (isChecked){
                     appType = "WhatsApp Bussiness";
                     subtitle.setText(appType);
-                    bundle.putString("appType", appType);
-                    selectedFragment = new WappBFragment();
+                    Toast.makeText(MainActivity.this, "Switch to WAB", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     appType = "WhatsApp";
                     subtitle.setText(appType);
-                    bundle.putString("appType", appType);
-                    selectedFragment = new WappFragment();
+                    Toast.makeText(MainActivity.this, "Switch to WA", Toast.LENGTH_SHORT).show();
                 }
-                selectedFragment.setArguments(bundle);
-//                getSupportFragmentManager().beginTransaction().replace(R.id.Fragholder, selectedFragment).commit();
-                title.setText("Status Feeds");
-                subtitle.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -267,9 +244,6 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
                 aSwitch.setChecked(true);
                 toolbarWAB.setImageResource(R.drawable.toolbar_wab_active);
                 toolbarWA.setImageResource(R.drawable.toolbar_wa_inactive);
-                break;
-            case R.id.backbtn:
-                onBackPressed();
                 break;
             case R.id.fabiconWA:
                 Intent launchIntentForPackageWA;
@@ -417,93 +391,6 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
     }
 
 
-    @Override
-    public void replaceFragment(Fragment fragment,LinearLayout linearLayout, String titleText) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setReorderingAllowed(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fragmentTransaction.setReorderingAllowed(true)
-                    .addSharedElement(linearLayout, linearLayout.getTransitionName());
-        }
-//        fragmentTransaction.replace(R.id.Fragholder, fragment, fragment.toString());
-        fragmentTransaction.commit();
-        fragTitle.setText(titleText);
-        fragTitle.setVisibility(View.VISIBLE);
-
-        subtitle.setVisibility(View.GONE);
-        title.setVisibility(View.GONE);
-        toolbarWA.setVisibility(View.GONE);
-        toolbarWAB.setVisibility(View.GONE);
-        backbtn.setVisibility(View.VISIBLE);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                nestedScrollView.scrollTo(-500, -500);
-            }
-        }, 500);
-    }
-
-    @Override
-    public void replaceFragment(Fragment fragment, String titleText) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.Fragholder, fragment, fragment.toString());
-        fragmentTransaction.commit();
-        fragTitle.setText(titleText);
-        fragTitle.setGravity(Gravity.CENTER);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                nestedScrollView.scrollTo(-500, -500);
-            }
-        }, 500);
-    }
-
-    @Override
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.Fragholder, fragment, fragment.toString());
-        fragmentTransaction.commit();
-        toolbarWA.setVisibility(View.VISIBLE);
-        toolbarWAB.setVisibility(View.VISIBLE);
-        backbtn.setVisibility(View.GONE);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                nestedScrollView.scrollTo(-500, -500);
-            }
-        }, 500);
-    }
-
-    @Override
-    public void replaceFragment(Fragment fragment, LinearLayout linearLayout, RecyclerView recyclerView, String titleText) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setReorderingAllowed(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fragmentTransaction.setReorderingAllowed(true)
-                    .addSharedElement(linearLayout, linearLayout.getTransitionName());
-            fragmentTransaction.setReorderingAllowed(true)
-                    .addSharedElement(recyclerView, "grid");
-        }
-//        fragmentTransaction.replace(R.id.Fragholder, fragment, fragment.toString());
-        fragmentTransaction.commit();
-        fragTitle.setText(titleText);
-        fragTitle.setVisibility(View.VISIBLE);
-
-        subtitle.setVisibility(View.GONE);
-        title.setVisibility(View.GONE);
-        toolbarWA.setVisibility(View.GONE);
-        toolbarWAB.setVisibility(View.GONE);
-        backbtn.setVisibility(View.VISIBLE);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                nestedScrollView.scrollTo(-500, -500);
-            }
-        }, 500);
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -512,18 +399,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
         else if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
         else {
-//            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.Fragholder);
-//            if (fragment instanceof FavsFragment || fragment instanceof SavedFragment){
-//                    replaceFragment(selectedFragment);
-//                    title.setVisibility(View.VISIBLE);
-//                    subtitle.setVisibility(View.VISIBLE);
-//                    fragTitle.setVisibility(View.GONE);
-//                nestedScrollView.scrollTo(-500, -500);
-//
-//            }
-//            else if (fragment instanceof WappFragment || fragment instanceof WappBFragment){
                 super.onBackPressed();
-//            }
         }
     }
 
@@ -531,15 +407,19 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.allfeeds:
-                Log.d("btm", "all");
+                selectedFragment = new WappFragment();
+                title.setText("Status Feeds");
                 break;
             case R.id.favourites:
-                Log.d("btm", "fav");
+                selectedFragment = new FavsFragment();
+                title.setText("Favourites");
                 break;
             case R.id.downloadedStatus:
-                Log.d("btm", "down");
+                selectedFragment = new SavedFragment();
+                title.setText("Downloads");
                 break;
         }
+        getSupportFragmentManager().beginTransaction().replace(R.id.Fragmentholder, selectedFragment).commit();
         return true;
     }
 

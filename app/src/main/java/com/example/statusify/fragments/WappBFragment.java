@@ -35,11 +35,10 @@ public class WappBFragment extends Fragment {
     ArrayList<DataModel> Allstatuses = new ArrayList<>();
     RecyclerView AllFeedsRecyclerView;
     WappFragAdapter adapter;
-    String appType = null;
+    String appType = "WhatsApp";
     File[]  files;
     public String dot_StatusFolder = "";
     GridLayoutManager gridLayoutManager;
-    Bundle bundle = new Bundle();
 
 
     @Override
@@ -47,10 +46,6 @@ public class WappBFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wapp_b, container, false);
         AllFeedsRecyclerView = view.findViewById(R.id.AllFeedsRecyclerView);
-
-        appType = "WhatsApp Bussiness";
-//        appType = getArguments().getString("appType");
-
 
         if (!appInstalledOrNot(appType)){
             view.findViewById(R.id.AllFeedsRecyclerView).setVisibility(View.INVISIBLE);

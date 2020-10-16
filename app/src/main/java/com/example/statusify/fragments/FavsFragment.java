@@ -40,25 +40,16 @@ public class FavsFragment extends Fragment {
     List<DataModel> statuses = new ArrayList<>();
     FavsFragAdapter favsFragAdapter;
     GridLayoutManager gridLayoutManager;
-    String appType = null;
-    Bundle bundle = new Bundle();
+    String appType = "WhatsApp";
+
     ConstraintLayout emptyerror;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        appType = "WhatsApp";
-//        appType = getArguments().getString("appType");
         View view = inflater.inflate(R.layout.fragment_favs, container, false);
 
-//        postponeEnterTransition();
-//            Transition transition =
-//                    TransitionInflater.from(getContext())
-//                            .inflateTransition(R.transition.nav_bar_transition);
-//            setSharedElementEnterTransition(transition);
-
         FavouriteRecyclerView = view.findViewById(R.id.FavouriteRecyclerView);
-//        scheduleStartPostponedTransition(FavouriteRecyclerView);
 
         folderName = "/Statusify/" + appType + "/favourites";
         gridLayoutManager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
@@ -132,16 +123,5 @@ public class FavsFragment extends Fragment {
             datalist.setAdapter(favsFragAdapter);
             favsFragAdapter.notifyDataSetChanged();
 
-    }
-    private void scheduleStartPostponedTransition(final View sharedElement) {
-        sharedElement.getViewTreeObserver().addOnPreDrawListener(
-                new ViewTreeObserver.OnPreDrawListener() {
-                    @Override
-                    public boolean onPreDraw() {
-                        sharedElement.getViewTreeObserver().removeOnPreDrawListener(this);
-                        startPostponedEnterTransition();
-                        return true;
-                    }
-                });
     }
 }

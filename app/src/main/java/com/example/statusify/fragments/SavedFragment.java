@@ -40,8 +40,7 @@ public class SavedFragment extends Fragment implements DeleteListener{
     List<DataModel> statuses = new ArrayList<>();
     SavedFragAdapter adapter;
     GridLayoutManager gridLayoutManager;
-    String appType = null;
-    Bundle bundle = new Bundle();
+    String appType = "WhatsApp";
     ConstraintLayout emptyerror;
 
     BlurLayout blurLayout;
@@ -50,19 +49,9 @@ public class SavedFragment extends Fragment implements DeleteListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        appType = "WhatsApp";
-//        appType = getArguments().getString("appType");
         View view = inflater.inflate(R.layout.fragment_saved, container, false);
 
-//        postponeEnterTransition();
-//        Transition transition =
-//                TransitionInflater.from(getContext())
-//                        .inflateTransition(R.transition.nav_bar_transition);
-//        setSharedElementEnterTransition(transition);
-
         DownloadedStatusRecyclerView = view.findViewById(R.id.DownloadedStatusRecyclerView);
-        scheduleStartPostponedTransition(DownloadedStatusRecyclerView);
-
         folderName = "/Statusify/" + appType + "/downloads";
         gridLayoutManager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
         DownloadedStatusRecyclerView.setLayoutManager(gridLayoutManager);
@@ -140,20 +129,6 @@ public class SavedFragment extends Fragment implements DeleteListener{
         datalist.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
-
-
-    private void scheduleStartPostponedTransition(final View sharedElement) {
-        sharedElement.getViewTreeObserver().addOnPreDrawListener(
-                new ViewTreeObserver.OnPreDrawListener() {
-                    @Override
-                    public boolean onPreDraw() {
-                        sharedElement.getViewTreeObserver().removeOnPreDrawListener(this);
-                        startPostponedEnterTransition();
-                        return true;
-                    }
-                });
-    }
-
 
     @Override
     public boolean delete(int position, String filepath) {
