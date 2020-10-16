@@ -46,58 +46,26 @@ import java.util.Comparator;
 public class WappFragment extends Fragment {
 
     ArrayList<DataModel> Allstatuses = new ArrayList<>();
-    ArrayList<DataModel> RecentStatuses = new ArrayList<>();
-    RecyclerView AllFeedsRecyclerView,RecentStatusRecyclerView;
+    RecyclerView AllFeedsRecyclerView;
     WappFragAdapter adapter;
-    RecentsFragAdapter adapterRecent;
     String appType = null;
     File[]  files;
     public String dot_StatusFolder = "";
     GridLayoutManager gridLayoutManager;
     Bundle bundle = new Bundle();
-    LinearLayout recentstile;
     ConstraintLayout AppNotInstalled;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        appType = getArguments().getString("appType");
+        appType = "WhatsApp";
+//        appType = getArguments().getString("appType");
         final View view = inflater.inflate(R.layout.fragment_wapp, container, false);
         AllFeedsRecyclerView = view.findViewById(R.id.AllFeedsRecyclerView);
-        recentstile = view.findViewById(R.id.recentstile);
         AppNotInstalled = view.findViewById(R.id.AppNotInstalled);
-        setExitTransition(TransitionInflater.from(getContext())
-                .inflateTransition(R.transition.exit_frag_transition));
-
-        final LinearLayout linearLayout = view.findViewById(R.id.navBar);
-//        final RecyclerView recyclerView = view.findViewById(R.id.AllFeedsRecyclerView);
-        view.findViewById(R.id.favouriteImgBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fr=new FavsFragment();
-                bundle.putString("appType", appType);
-                fr.setArguments(bundle);
-                FragmentChangeListener fc=(FragmentChangeListener)getActivity();
-                fc.replaceFragment(fr, linearLayout, AllFeedsRecyclerView, "Favourites");
-//                fc.replaceFragment(fr,linearLayout,"Favourites");
-            }
-        });
-        view.findViewById(R.id.downloadImgBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fr=new SavedFragment();
-                bundle.putString("appType", appType);
-                fr.setArguments(bundle);
-                FragmentChangeListener fc=(FragmentChangeListener)getActivity();
-                fc.replaceFragment(fr, linearLayout, AllFeedsRecyclerView, "Downloads");
-//                fc.replaceFragment(fr,linearLayout,"Downloads");
-            }
-        });
 
         if (!appInstalledOrNot(appType)){
-            view.findViewById(R.id.recentstile).setVisibility(View.GONE);
-            view.findViewById(R.id.RecentStatusRecyclerView).setVisibility(View.GONE);
             view.findViewById(R.id.AllFeedsRecyclerView).setVisibility(View.GONE);
             view.findViewById(R.id.AppNotInstalled).setVisibility(View.VISIBLE);
             return view;
@@ -110,9 +78,6 @@ public class WappFragment extends Fragment {
         AllFeedsRecyclerView.setLayoutManager(gridLayoutManager);
         AllFeedsRecyclerView.setNestedScrollingEnabled(false);
 
-
-        RecentStatusRecyclerView = view.findViewById(R.id.RecentStatusRecyclerView);
-        RecentStatusRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         return view;
     }
 
@@ -139,75 +104,15 @@ public class WappFragment extends Fragment {
 //        recentstile.setVisibility(directory.length() != 0?View.VISIBLE:View.GONE);
 
         Allstatuses.clear();
-        RecentStatuses.clear();
         if (directory.isDirectory()) {
             if (Build.VERSION.SDK_INT < 23) {
                 displayfilesAllfeeds(files);
-                displayfilesRecents(files);
             } else if (ContextCompat.checkSelfPermission(getActivity(), "android.permission.WRITE_EXTERNAL_STORAGE") == 0) {
                 displayfilesAllfeeds(files);
-                displayfilesRecents(files);
             }
         }
     }
 
-    private void displayfilesRecents(File[] files) {
-        Arrays.sort(files, new Comparator<File>(){
-            public int compare(File f1, File f2) {
-                return Long.valueOf(f2.lastModified()).compareTo(f1.lastModified());
-            }
-        });
-        String DownloadFolder = Environment.getExternalStorageDirectory() +
-                File.separator +
-                getActivity().getString(R.string.app_name) +
-                File.separator +
-                appType +
-                File.separator +
-                "downloads"+
-                File.separator;
-        String FavFolder = Environment.getExternalStorageDirectory() +
-                File.separator +
-                getActivity().getString(R.string.app_name) +
-                File.separator +
-                appType +
-                File.separator +
-                "favourites"+
-                File.separator;
-        int i=0;
-        for (File file : files) {
-            if (i>5) break;
-            if (!file.isDirectory() && !file.getName().contains(".nomedia")) {
-                if (new File(DownloadFolder + file.getName()).exists()){
-                    if (new File(FavFolder + file.getName()).exists()) {
-                        if (file.getAbsolutePath().substring(file.getPath().lastIndexOf(".")).equals(".mp4"))
-                            RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), true, true, true));
-                        else RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), true, true, false));
-                    }
-                    else {
-                        if (file.getAbsolutePath().substring(file.getPath().lastIndexOf(".")).equals(".mp4"))
-                            RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), true, false, true));
-                        else RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), true, false, false));
-                    }
-                }
-                else {
-                    if (new File(FavFolder + file.getName()).exists()) {
-                        if (file.getAbsolutePath().substring(file.getPath().lastIndexOf(".")).equals(".mp4"))
-                            RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), true, true, true));
-                        else RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), true, true, false));
-                    }
-                    else {
-                        if (file.getAbsolutePath().substring(file.getPath().lastIndexOf(".")).equals(".mp4"))
-                            RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), true, false, true));
-                        else RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), true, false, false));
-                    }
-                }
-                i++;
-            }
-        }
-        adapterRecent = new RecentsFragAdapter(RecentStatuses, getActivity(), appType);
-        RecentStatusRecyclerView.setAdapter(adapterRecent);
-        adapterRecent.notifyDataSetChanged();
-    }
 
     private void displayfilesAllfeeds(File[] files) {
         Arrays.sort(files, new Comparator<File>(){

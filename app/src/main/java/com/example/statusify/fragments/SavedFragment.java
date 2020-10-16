@@ -50,14 +50,15 @@ public class SavedFragment extends Fragment implements DeleteListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        appType = getArguments().getString("appType");
+        appType = "WhatsApp";
+//        appType = getArguments().getString("appType");
         View view = inflater.inflate(R.layout.fragment_saved, container, false);
 
-        postponeEnterTransition();
-        Transition transition =
-                TransitionInflater.from(getContext())
-                        .inflateTransition(R.transition.nav_bar_transition);
-        setSharedElementEnterTransition(transition);
+//        postponeEnterTransition();
+//        Transition transition =
+//                TransitionInflater.from(getContext())
+//                        .inflateTransition(R.transition.nav_bar_transition);
+//        setSharedElementEnterTransition(transition);
 
         DownloadedStatusRecyclerView = view.findViewById(R.id.DownloadedStatusRecyclerView);
         scheduleStartPostponedTransition(DownloadedStatusRecyclerView);
@@ -66,16 +67,6 @@ public class SavedFragment extends Fragment implements DeleteListener{
         gridLayoutManager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
         DownloadedStatusRecyclerView.setLayoutManager(gridLayoutManager);
         DownloadedStatusRecyclerView.setNestedScrollingEnabled(false);
-        view.findViewById(R.id.favouriteImgBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fr=new FavsFragment();
-                bundle.putString("appType", appType);
-                fr.setArguments(bundle);
-                FragmentChangeListener fc=(FragmentChangeListener)getActivity();
-                fc.replaceFragment(fr,"Favourites");
-            }
-        });
 
         emptyerror = view.findViewById(R.id.emptyerror);
         blurLayout = view.findViewById(R.id.blurLayout);

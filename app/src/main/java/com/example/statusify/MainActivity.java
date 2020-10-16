@@ -67,12 +67,11 @@ import eightbitlab.com.blurview.RenderScriptBlur;
 
 public class MainActivity extends AppCompatActivity implements FragmentChangeListener, OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
-    FrameLayout FragHolder, FragmentHolder;
+    FrameLayout FragmentHolder;
     BottomNavigationView btm_nav_bar;
     Fragment selectedFragment = new WappFragment();
     ImageView fabicon,fabiconWA,fabiconWAB, backbtn;
     BlurLayout blurLayout;
-//    BlurView blurViewOld;
     String appType = null;
     Bundle bundle = new Bundle();
     public String dot_StatusFolder = "";
@@ -86,29 +85,15 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
     ImageView toolbarWA,toolbarWAB;
 
     TextView title,subtitle,fragTitle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(Environment.getExternalStorageDirectory());
-//        sb.append(File.separator);
-//        sb.append(getResources().getString(R.string.foldername));
-//        sb.append(File.separator);
-//        checkAndCreateFolder(sb.toString());
-
 
         blurLayout = findViewById(R.id.blurLayout);
         blurLayout.setOnClickListener(this);
 
-//        blurViewOld = findViewById(R.id.blur);
-//        blurViewOld.setOnClickListener(this);
-//        blurBackground();
-
-
-//        appType = "WhatsApp";
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             appType = extras.getString("appType");
@@ -198,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
         nav = findViewById(R.id.navView);
         drawerLayout = findViewById(R.id.drawer);
         toolbar = findViewById(R.id.toolbar);
-        FragHolder = findViewById(R.id.Fragholder);
+
         fabicon = findViewById(R.id.fabicon);
         fabicon.setOnClickListener(this);
         fabiconWAB = findViewById(R.id.fabiconWAB);
@@ -214,14 +199,13 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
         backbtn = findViewById(R.id.backbtn);
         backbtn.setOnClickListener(this);
 
-        nestedScrollView = findViewById(R.id.nestedScrollView);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout,
                 toolbar, R.string.open,
                 R.string.close);
         toggle.setDrawerIndicatorEnabled(false);
-//        drawerLayout.addDrawerListener(toggle);
         toggle.setHomeAsUpIndicator(R.drawable.navigation_drawer_menu_toggle);
         toggle.setToolbarNavigationClickListener(new OnClickListener() {
             @Override
@@ -229,13 +213,12 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-//        toggle.syncState();
 
         dot_StatusFolder = "/" + appType + "/Media/.Statuses";
         bundle.putString("appType", appType);
 
         selectedFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.Fragholder, selectedFragment).commit();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.Fragholder, selectedFragment).commit();
 
 
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -254,29 +237,14 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
                     selectedFragment = new WappFragment();
                 }
                 selectedFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.Fragholder, selectedFragment).commit();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.Fragholder, selectedFragment).commit();
                 title.setText("Status Feeds");
                 subtitle.setVisibility(View.VISIBLE);
             }
         });
     }
 
-//    private void blurBackground() {
-//        float radius = 5f;
-//
-//        View decorView = getWindow().getDecorView();
-//        ViewGroup rootView = decorView.findViewById(android.R.id.content);
-//
-//        Drawable windowBackground = decorView.getBackground();
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//            blurViewOld.setupWith(rootView)
-//                    .setFrameClearDrawable(windowBackground)
-//                    .setBlurAlgorithm(new RenderScriptBlur(this))
-//                    .setBlurRadius(radius)
-//                    .setHasFixedTransformationMatrix(true);
-//        }
-//    }
+
 
     @Override
     protected void onResume() {
@@ -457,7 +425,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
             fragmentTransaction.setReorderingAllowed(true)
                     .addSharedElement(linearLayout, linearLayout.getTransitionName());
         }
-        fragmentTransaction.replace(R.id.Fragholder, fragment, fragment.toString());
+//        fragmentTransaction.replace(R.id.Fragholder, fragment, fragment.toString());
         fragmentTransaction.commit();
         fragTitle.setText(titleText);
         fragTitle.setVisibility(View.VISIBLE);
@@ -473,23 +441,13 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
                 nestedScrollView.scrollTo(-500, -500);
             }
         }, 500);
-//        title.setGravity(Gravity.CENTER);
-//        ConstraintLayout.LayoutParams params =new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
-//                , ViewGroup.LayoutParams.WRAP_CONTENT);
-//        params.setMargins(0, (int) getResources().getDimension(R.dimen._4sdp),0,0);
-//        title.setLayoutParams(params);
     }
 
     @Override
     public void replaceFragment(Fragment fragment, String titleText) {
-
-//        ConstraintLayout.LayoutParams params =new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
-//                , ViewGroup.LayoutParams.WRAP_CONTENT);
-//        params.setMargins(0, (int) getResources().getDimension(R.dimen._4sdp),0,0);
-//        title.setLayoutParams(params);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.Fragholder, fragment, fragment.toString());
+//        fragmentTransaction.replace(R.id.Fragholder, fragment, fragment.toString());
         fragmentTransaction.commit();
         fragTitle.setText(titleText);
         fragTitle.setGravity(Gravity.CENTER);
@@ -505,7 +463,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.Fragholder, fragment, fragment.toString());
+//        fragmentTransaction.replace(R.id.Fragholder, fragment, fragment.toString());
         fragmentTransaction.commit();
         toolbarWA.setVisibility(View.VISIBLE);
         toolbarWAB.setVisibility(View.VISIBLE);
@@ -528,7 +486,7 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
             fragmentTransaction.setReorderingAllowed(true)
                     .addSharedElement(recyclerView, "grid");
         }
-        fragmentTransaction.replace(R.id.Fragholder, fragment, fragment.toString());
+//        fragmentTransaction.replace(R.id.Fragholder, fragment, fragment.toString());
         fragmentTransaction.commit();
         fragTitle.setText(titleText);
         fragTitle.setVisibility(View.VISIBLE);
@@ -554,24 +512,18 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
         else if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
         else {
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.Fragholder);
-            if (fragment instanceof FavsFragment || fragment instanceof SavedFragment){
-                    replaceFragment(selectedFragment);
-                    title.setVisibility(View.VISIBLE);
-                    subtitle.setVisibility(View.VISIBLE);
-                    fragTitle.setVisibility(View.GONE);
-//                    scroll to top
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        nestedScrollView.scrollTo(-500, -500);
-//                    }
-//                }, 500);
-                nestedScrollView.scrollTo(-500, -500);
-
-            }else if (fragment instanceof WappFragment || fragment instanceof WappBFragment){
+//            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.Fragholder);
+//            if (fragment instanceof FavsFragment || fragment instanceof SavedFragment){
+//                    replaceFragment(selectedFragment);
+//                    title.setVisibility(View.VISIBLE);
+//                    subtitle.setVisibility(View.VISIBLE);
+//                    fragTitle.setVisibility(View.GONE);
+//                nestedScrollView.scrollTo(-500, -500);
+//
+//            }
+//            else if (fragment instanceof WappFragment || fragment instanceof WappBFragment){
                 super.onBackPressed();
-            }
+//            }
         }
     }
 
@@ -591,17 +543,4 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
         return true;
     }
 
-//    @Override
-//    public void delete(int position, String filepath) {
-//        Log.d("del", position + "");
-//        Storage storage =  new Storage(getApplicationContext());
-//
-//        try {
-//            storage.deleteFile(filepath);
-//        }
-//        catch (Exception e){
-//            Log.d("error", "dd");
-//        }
-//
-//    }
 }

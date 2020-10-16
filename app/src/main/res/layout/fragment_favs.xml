@@ -12,13 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:visibility="gone"
         android:id="@+id/emptyerror"
-        android:layout_below="@id/navBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navBar">
+        android:layout_height="match_parent">
         <ImageView
             app:layout_constraintVertical_chainStyle="packed"
             android:id="@+id/errorimg"
@@ -46,113 +41,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:transitionName="grid"
         android:id="@+id/FavouriteRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintVertical_bias="0"
         android:layout_marginLeft="17dp"
         android:layout_marginStart="17dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navBar"
         android:layout_marginRight="17dp"
         android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="@dimen/_50sdp"
-        android:layout_below="@id/navBar"/>
+        android:layout_marginEnd="17dp"/>
 
-    <LinearLayout
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/FavouriteRecyclerView"
-        android:transitionName="navBarTransition"
-        android:id="@+id/navBar"
-        android:layout_marginTop="@dimen/_9sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/allfeedtitle"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp">
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_extralight"
-                android:text="@string/your"
-                android:id="@+id/allTextView"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_2sdp"
-                android:background="@drawable/underline"
-                />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_marginRight="10dp"
-                android:id="@+id/feedsTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinslight"
-                android:text="@string/favourites"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="@dimen/_13sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-        </LinearLayout>
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <LinearLayout
-            android:transitionName="navButtons"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:id="@+id/navButtons"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="17dp"
-            android:layout_marginRight="17dp">
-
-            <ImageView
-                android:id="@+id/favouriteImgBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/icon_metro_heart"
-                android:tint="#FF3068" />
-
-            <ImageView
-                android:id="@+id/downloadImgBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:src="@drawable/icon_feather_download"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/favourite"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:tint="#E6E6E6" />
-        </LinearLayout>
-    </LinearLayout>
 </RelativeLayout>

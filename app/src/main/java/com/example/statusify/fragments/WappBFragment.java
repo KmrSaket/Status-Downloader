@@ -33,10 +33,8 @@ import java.util.Comparator;
 
 public class WappBFragment extends Fragment {
     ArrayList<DataModel> Allstatuses = new ArrayList<>();
-    ArrayList<DataModel> RecentStatuses = new ArrayList<>();
-    RecyclerView AllFeedsRecyclerView,RecentStatusRecyclerView;
+    RecyclerView AllFeedsRecyclerView;
     WappFragAdapter adapter;
-    RecentsFragAdapter adapterRecent;
     String appType = null;
     File[]  files;
     public String dot_StatusFolder = "";
@@ -49,37 +47,12 @@ public class WappBFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wapp_b, container, false);
         AllFeedsRecyclerView = view.findViewById(R.id.AllFeedsRecyclerView);
-        setExitTransition(TransitionInflater.from(getContext())
-                .inflateTransition(R.transition.exit_frag_transition));
-        appType = getArguments().getString("appType");
 
-        final LinearLayout linearLayout = view.findViewById(R.id.navBar);
-        view.findViewById(R.id.favouriteImgBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fr=new FavsFragment();
-                bundle.putString("appType", appType);
-                fr.setArguments(bundle);
-                FragmentChangeListener fc=(FragmentChangeListener)getActivity();
-                fc.replaceFragment(fr, linearLayout, AllFeedsRecyclerView, "Favourites");
-//                fc.replaceFragment(fr,linearLayout,"Favourites");
-            }
-        });
-        view.findViewById(R.id.downloadImgBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fr=new SavedFragment();
-                bundle.putString("appType", appType);
-                fr.setArguments(bundle);
-                FragmentChangeListener fc=(FragmentChangeListener)getActivity();
-                fc.replaceFragment(fr, linearLayout, AllFeedsRecyclerView, "Favourites");
-//                fc.replaceFragment(fr,linearLayout,"Downloads");
-            }
-        });
+        appType = "WhatsApp Bussiness";
+//        appType = getArguments().getString("appType");
+
 
         if (!appInstalledOrNot(appType)){
-            view.findViewById(R.id.recentstile).setVisibility(View.GONE);
-            view.findViewById(R.id.RecentStatusRecyclerView).setVisibility(View.GONE);
             view.findViewById(R.id.AllFeedsRecyclerView).setVisibility(View.INVISIBLE);
             view.findViewById(R.id.AppNotInstalled).setVisibility(View.VISIBLE);
             return view;
@@ -92,9 +65,6 @@ public class WappBFragment extends Fragment {
         AllFeedsRecyclerView.setLayoutManager(gridLayoutManager);
         AllFeedsRecyclerView.setNestedScrollingEnabled(false);
 
-
-        RecentStatusRecyclerView = view.findViewById(R.id.RecentStatusRecyclerView);
-        RecentStatusRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         return view;
     }
 
@@ -113,7 +83,6 @@ public class WappBFragment extends Fragment {
         files = directory.listFiles();
 
         Allstatuses.clear();
-        RecentStatuses.clear();
         if (directory.isDirectory()) {
             if (Build.VERSION.SDK_INT < 23) {
                 displayfiles(files);
@@ -128,59 +97,9 @@ public class WappBFragment extends Fragment {
                 return Long.valueOf(f1.lastModified()).compareTo(f2.lastModified());
             }
         });
-        String DownloadFolder = Environment.getExternalStorageDirectory() +
-                File.separator +
-                getActivity().getString(R.string.app_name) +
-                File.separator +
-                appType +
-                File.separator +
-                "downloads"+
-                File.separator;
-        String FavFolder = Environment.getExternalStorageDirectory() +
-                File.separator +
-                getActivity().getString(R.string.app_name) +
-                File.separator +
-                appType +
-                File.separator +
-                "favourites"+
-                File.separator;
-        int i =0;
-        for (File file : files) {
-            if (i>5) break;
-            if (!file.isDirectory() && !file.getName().contains(".nomedia")) {
-                if (new File(DownloadFolder + file.getName()).exists()){
-                    if (new File(FavFolder + file.getName()).exists()) {
-                        if (file.getAbsolutePath().substring(file.getPath().lastIndexOf(".")).equals(".mp4"))
-                            RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), true, true, true));
-                        else RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), true, true, false));
-                    }
-                    else {
-                        if (file.getAbsolutePath().substring(file.getPath().lastIndexOf(".")).equals(".mp4"))
-                            RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), true, false, true));
-                        else RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), true, false, false));
-                    }
-                }
-                else {
-                    if (new File(FavFolder + file.getName()).exists()) {
-                        if (file.getAbsolutePath().substring(file.getPath().lastIndexOf(".")).equals(".mp4"))
-                            RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), false, true, true));
-                        else RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), false, true, false));
-                    }
-                    else {
-                        if (file.getAbsolutePath().substring(file.getPath().lastIndexOf(".")).equals(".mp4"))
-                            RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), false, false, true));
-                        else RecentStatuses.add(new DataModel(file.getAbsolutePath(), file.getName(), false, false, false));
-                    }
-                }
-                i++;
-            }
-        }
         adapter = new WappFragAdapter(Allstatuses , getActivity() , appType);
         AllFeedsRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        adapterRecent = new RecentsFragAdapter(RecentStatuses, getActivity(), appType);
-        RecentStatusRecyclerView.setAdapter(adapterRecent);
-        adapterRecent.notifyDataSetChanged();
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

@@ -47,34 +47,24 @@ public class FavsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        appType = getArguments().getString("appType");
+        appType = "WhatsApp";
+//        appType = getArguments().getString("appType");
         View view = inflater.inflate(R.layout.fragment_favs, container, false);
 
-        postponeEnterTransition();
-            Transition transition =
-                    TransitionInflater.from(getContext())
-                            .inflateTransition(R.transition.nav_bar_transition);
-            setSharedElementEnterTransition(transition);
+//        postponeEnterTransition();
+//            Transition transition =
+//                    TransitionInflater.from(getContext())
+//                            .inflateTransition(R.transition.nav_bar_transition);
+//            setSharedElementEnterTransition(transition);
 
         FavouriteRecyclerView = view.findViewById(R.id.FavouriteRecyclerView);
-        scheduleStartPostponedTransition(FavouriteRecyclerView);
+//        scheduleStartPostponedTransition(FavouriteRecyclerView);
 
         folderName = "/Statusify/" + appType + "/favourites";
         gridLayoutManager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
         FavouriteRecyclerView.setLayoutManager(gridLayoutManager);
         FavouriteRecyclerView.setNestedScrollingEnabled(false);
-//        final LinearLayout linearLayout = view.findViewById(R.id.navBar);
-        view.findViewById(R.id.downloadImgBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fr=new SavedFragment();
-                bundle.putString("appType", appType);
-                fr.setArguments(bundle);
-                FragmentChangeListener fc=(FragmentChangeListener)getActivity();
-//                fc.replaceFragment(fr,linearLayout,FavouriteRecyclerView,"Downloads");
-                fc.replaceFragment(fr,"Downloads");
-            }
-        });
+
         emptyerror = view.findViewById(R.id.emptyerror);
 
         return view;

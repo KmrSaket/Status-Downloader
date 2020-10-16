@@ -143,31 +143,31 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
             android:id="@+id/Fragmentholder">
 
         </FrameLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:visibility="gone"
-                android:layout_below="@id/toolbar"
-                android:id="@+id/nestedScrollView"
-                android:fillViewport="true"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <FrameLayout
-                    android:id="@+id/Fragholder"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </FrameLayout>
-            </androidx.core.widget.NestedScrollView>
 
-<!--        <eightbitlab.com.blurview.BlurView-->
-<!--            app:blurOverlayColor="#22ffffff"-->
-<!--                android:visibility="invisible"-->
-<!--                android:id="@+id/blur"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent">-->
-<!--            </eightbitlab.com.blurview.BlurView>-->
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/btm_nav_bar"
+                app:itemIconTint="@color/nav_item_color_state"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:labelVisibilityMode="unlabeled"
+                android:layout_width="wrap_content"
+                android:background="@drawable/btm_nav_bg"
+
+                android:layout_height="wrap_content"
+                app:menu="@menu/bottom_nav_menu">
+
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
+        </LinearLayout>
 
         <com.example.statusify.blur.BlurLayout
             android:id="@+id/blurLayout"
@@ -179,7 +179,7 @@
         </com.example.statusify.blur.BlurLayout>
 
         <ImageView
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="110dp"
             android:layout_marginRight="30dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -191,7 +191,7 @@
             android:src="@drawable/gototext"/>
 
         <ImageView
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="110dp"
             android:layout_marginRight="30dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -202,7 +202,7 @@
             android:src="@drawable/fab_icon"/>
 
         <ImageView
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="110dp"
             android:layout_marginRight="30dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -214,7 +214,7 @@
             />
 
         <ImageView
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="110dp"
             android:layout_marginRight="30dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -224,20 +224,7 @@
             android:layout_height="50dp"
             android:src="@drawable/fab_icon"/>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/btm_nav_bar"
-            app:itemIconTint="@color/nav_item_color_state"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            app:labelVisibilityMode="unlabeled"
-            android:layout_width="match_parent"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/btm_nav_bg"
-            android:layout_alignParentBottom="true"
-            android:layout_height="wrap_content"
-            app:menu="@menu/bottom_nav_menu">
 
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
