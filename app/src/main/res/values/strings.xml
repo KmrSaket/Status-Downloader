@@ -33,4 +33,6 @@
     <string name="alertBox_deletebtn">Delete</string>
     <string name="alertBox_cancelbtn">Cancel</string>
     <string name="alertBox_title">Are you sure ?</string>
+    <string name="preference_file_key">appPref</string>
+    <string name="appType">WhatsApp</string>
 </resources>

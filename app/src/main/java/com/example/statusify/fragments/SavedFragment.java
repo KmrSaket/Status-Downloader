@@ -1,5 +1,7 @@
 package com.example.statusify.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -34,13 +36,15 @@ import java.util.List;
 
 
 public class SavedFragment extends Fragment implements DeleteListener{
+
+    SharedPreferences sharedPreferences;
     File[]  files;
     public String folderName = null;
     RecyclerView DownloadedStatusRecyclerView;
     List<DataModel> statuses = new ArrayList<>();
     SavedFragAdapter adapter;
     GridLayoutManager gridLayoutManager;
-    String appType = "WhatsApp";
+    String appType;
     ConstraintLayout emptyerror;
 
     BlurLayout blurLayout;
@@ -50,7 +54,9 @@ public class SavedFragment extends Fragment implements DeleteListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_saved, container, false);
-
+        appType = getResources().getString(R.string.appType);
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        appType = sharedPreferences.getString("appType", appType);
         DownloadedStatusRecyclerView = view.findViewById(R.id.DownloadedStatusRecyclerView);
         folderName = "/Statusify/" + appType + "/downloads";
         gridLayoutManager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);

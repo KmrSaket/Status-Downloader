@@ -41,6 +41,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:paddingBottom="90dp"
+        android:clipToPadding="false"
         android:id="@+id/FavouriteRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

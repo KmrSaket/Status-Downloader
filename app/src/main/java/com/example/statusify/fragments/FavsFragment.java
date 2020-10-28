@@ -1,5 +1,7 @@
 package com.example.statusify.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -34,13 +36,14 @@ import java.util.List;
 
 public class FavsFragment extends Fragment {
 
+    SharedPreferences sharedPreferences;
     File[]  files;
     public String folderName = null;
     RecyclerView FavouriteRecyclerView;
     List<DataModel> statuses = new ArrayList<>();
     FavsFragAdapter favsFragAdapter;
     GridLayoutManager gridLayoutManager;
-    String appType = "WhatsApp";
+    String appType;
 
     ConstraintLayout emptyerror;
 
@@ -48,7 +51,9 @@ public class FavsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favs, container, false);
-
+        appType = getResources().getString(R.string.appType);
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        appType = sharedPreferences.getString("appType", appType);
         FavouriteRecyclerView = view.findViewById(R.id.FavouriteRecyclerView);
 
         folderName = "/Statusify/" + appType + "/favourites";

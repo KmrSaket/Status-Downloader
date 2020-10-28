@@ -20,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -67,13 +69,14 @@ import eightbitlab.com.blurview.RenderScriptBlur;
 
 public class MainActivity extends AppCompatActivity implements  OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     FrameLayout FragmentHolder;
     BottomNavigationView btm_nav_bar;
     Fragment selectedFragment;
     ImageView fabicon,fabiconWA,fabiconWAB;
     BlurLayout blurLayout;
-    String appType = "WhatsApp";
-
+    String appType;
     Toolbar toolbar;
     NavigationView nav;
     private DrawerLayout drawerLayout;
@@ -86,8 +89,12 @@ public class MainActivity extends AppCompatActivity implements  OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        appType = getResources().getString(R.string.appType);
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        appType = sharedPreferences.getString("appType", appType);
+        Log.d("PREF", " " + appType);
         initialize();
+
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -208,17 +215,41 @@ public class MainActivity extends AppCompatActivity implements  OnClickListener,
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    appType = "WhatsApp Bussiness";
+                    editor = sharedPreferences.edit();
+                    editor.putString("appType", "WhatsApp Bussiness");
+                    editor.apply();
+                    appType = sharedPreferences.getString("appType", appType);
                     subtitle.setText(appType);
-                    Toast.makeText(MainActivity.this, "Switch to WAB", Toast.LENGTH_SHORT).show();
+                    Log.d("PREF", ""+appType);
+                    if (selectedFragment instanceof WappFragment)
+                        selectedFragment = new WappFragment();
+                    else if (selectedFragment instanceof FavsFragment)
+                        selectedFragment = new FavsFragment();
+                    else if (selectedFragment instanceof SavedFragment)
+                        selectedFragment = new SavedFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.Fragmentholder, selectedFragment).commit();
                 }
                 else {
-                    appType = "WhatsApp";
+                    editor = sharedPreferences.edit();
+                    editor.putString("appType", "WhatsApp");
+                    editor.apply();
                     subtitle.setText(appType);
-                    Toast.makeText(MainActivity.this, "Switch to WA", Toast.LENGTH_SHORT).show();
+                    appType = sharedPreferences.getString("appType", appType);
+                    Log.d("PREF", ""+appType);
+                    subtitle.setText(appType);
+                    if (selectedFragment instanceof WappFragment)
+                        selectedFragment = new WappFragment();
+                    else if (selectedFragment instanceof FavsFragment)
+                        selectedFragment = new FavsFragment();
+                    else if (selectedFragment instanceof SavedFragment)
+                        selectedFragment = new SavedFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.Fragmentholder, selectedFragment).commit();
                 }
             }
         });
+        if (!appType.equals(getString(R.string.appType))){
+            findViewById(R.id.WAB).performClick();
+        }
     }
 
 

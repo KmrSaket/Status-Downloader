@@ -1,5 +1,7 @@
 package com.example.statusify.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,10 +34,12 @@ import java.util.Comparator;
 
 
 public class WappBFragment extends Fragment {
+
+    SharedPreferences sharedPreferences;
     ArrayList<DataModel> Allstatuses = new ArrayList<>();
     RecyclerView AllFeedsRecyclerView;
     WappFragAdapter adapter;
-    String appType = "WhatsApp";
+    String appType;
     File[]  files;
     public String dot_StatusFolder = "";
     GridLayoutManager gridLayoutManager;
@@ -45,6 +49,9 @@ public class WappBFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wapp_b, container, false);
+        appType = getResources().getString(R.string.appType);
+        sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        appType = sharedPreferences.getString("appType", appType);
         AllFeedsRecyclerView = view.findViewById(R.id.AllFeedsRecyclerView);
 
         if (!appInstalledOrNot(appType)){
