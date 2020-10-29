@@ -186,6 +186,7 @@ public class WappFragAdapter extends RecyclerView.Adapter<WappFragAdapter.ViewHo
                     File.separator +
                     new File(str).getName();
             storage.copy(str, sb3);
+
             Toast.makeText(context, "Added to "+ subFolder +" Successfully", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             Toast.makeText(context, "Error Ocurred", Toast.LENGTH_SHORT).show();

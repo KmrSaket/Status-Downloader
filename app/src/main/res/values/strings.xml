@@ -24,15 +24,20 @@
     <string name="updates">Updates</string>
     <string name="all">All</string>
     <string name="feeds">Feeds</string>
+
+    <!--    No status    -->
     <string name="no_status_found">NO Status Found</string>
     <string name="go_to_whatsapp_and_view_status">Go to WhatsApp and view status</string>
+    <string name="go_to_whatsapp_business_and_view_status">Go to WhatsApp Business and view status</string>
+
+    <!--    app not installed   -->
     <string name="whatsapp_not_found">WhatsApp Not Found</string>
+    <string name="whatsapp_business_not_found">WhatsApp Business\nNot Found</string>
     <string name="please_install_the_app">Please Install The App</string>
-    <string name="whatsapp_business_not_found">WhatsApp Business Not Found</string>
 
     <string name="alertBox_deletebtn">Delete</string>
     <string name="alertBox_cancelbtn">Cancel</string>
     <string name="alertBox_title">Are you sure ?</string>
-    <string name="preference_file_key">appPref</string>
+
     <string name="appType">WhatsApp</string>
 </resources>

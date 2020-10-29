@@ -25,7 +25,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -51,7 +53,7 @@ public class WappFragment extends Fragment {
     ArrayList<DataModel> Allstatuses = new ArrayList<>();
     RecyclerView AllFeedsRecyclerView;
     WappFragAdapter adapter;
-    String appType = "WhatsApp";
+    String appType;
     File[]  files;
     public String dot_StatusFolder = "";
     GridLayoutManager gridLayoutManager;
@@ -69,8 +71,6 @@ public class WappFragment extends Fragment {
         AppNotInstalled = view.findViewById(R.id.AppNotInstalled);
 
         if (!appInstalledOrNot(appType)){
-            view.findViewById(R.id.AllFeedsRecyclerView).setVisibility(View.GONE);
-            view.findViewById(R.id.AppNotInstalled).setVisibility(View.VISIBLE);
             return view;
         }
         dot_StatusFolder = "/" + appType + "/Media/.Statuses";
@@ -85,10 +85,30 @@ public class WappFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (!appInstalledOrNot(appType)){
+            getView().findViewById(R.id.AllFeedsRecyclerView).setVisibility(View.GONE);
+            setAppNotInstalledView(appType);
+            getView().findViewById(R.id.AppNotInstalled).setVisibility(View.VISIBLE);
+        }
         if (appInstalledOrNot(appType))
             loadMedia();
     }
 
+
+    private void setAppNotInstalledView(String appType) {
+        if (appType.equals(getResources().getString(R.string.appType))){
+            ImageView logo = getView().findViewById(R.id.AppNotInstalledIMG);
+            logo.setImageResource(R.drawable.fab_icon);
+            TextView title = getView().findViewById(R.id.AppNotInstalledTitle);
+            title.setText(R.string.whatsapp_not_found);
+        }else {
+            ImageView logo = getView().findViewById(R.id.AppNotInstalledIMG);
+            logo.setImageResource(R.drawable.fabicon_wab);
+            TextView title = getView().findViewById(R.id.AppNotInstalledTitle);
+            title.setText(R.string.whatsapp_business_not_found);
+        }
+
+    }
 
 
 
@@ -98,6 +118,13 @@ public class WappFragment extends Fragment {
 
         File directory = new File(path);
         files = directory.listFiles();
+
+        if ((files.length == 0) || (files.length == 1 && files[0].getName().equals(".nomedia"))){
+            setNoStatusView(appType);
+            getView().findViewById(R.id.goViewStatus).setVisibility(View.VISIBLE);
+        }else {
+            getView().findViewById(R.id.goViewStatus).setVisibility(View.GONE);
+        }
 
 
 //        AppNotInstalled.setVisibility(directory.length() == 0?View.VISIBLE:View.GONE);
@@ -111,6 +138,12 @@ public class WappFragment extends Fragment {
                 displayfilesAllfeeds(files);
             }
         }
+    }
+
+    private void setNoStatusView(String appType) {
+        TextView title = getView().findViewById(R.id.goViewStatusSubTitle);
+        if (appType.equals(getResources().getString(R.string.appType))) title.setText(R.string.go_to_whatsapp_and_view_status);
+        else title.setText(R.string.go_to_whatsapp_business_and_view_status);
     }
 
 
@@ -176,7 +209,6 @@ public class WappFragment extends Fragment {
     private boolean appInstalledOrNot(String appType) {
         try {
             if (appType.equals("WhatsApp"))
-
                 getActivity().getPackageManager().getPackageInfo("com.whatsapp",0);
             else if (appType.equals("WhatsApp Bussiness"))
                 getActivity().getPackageManager().getPackageInfo("com.whatsapp.w4b",0);
